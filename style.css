@@ -1,0 +1,151 @@
+:root {
+  --backgroundColor: #dde1e7;
+
+  --shadow-light: rgba(247, 247, 247, 0.7);
+  --shadow-dark: rgba(94, 104, 121, .288);
+
+  --textColor: black;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background-color: var(--backgroundColor);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+#calculatorBackground {
+  width: 350px;
+  height: 600px;
+  border-radius: 20px;
+  box-shadow: -3px -3px 6px var(--shadow-light), 3px 3px 6px var(--shadow-dark);
+}
+
+#chooseDose {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+#chooseDose>button {
+  width: 200px;
+  height: 60px;
+  margin: 10px;
+  border-radius: 10px;
+  font-size: 30px;
+  color: var(--textColor);
+  background-color: var(--backgroundColor);
+  border: 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+  box-shadow: -3px -3px 6px var(--shadow-light), 3px 3px 6px var(--shadow-dark);
+}
+
+#chooseDose>button:is(:hover, :focus) {
+  box-shadow: inset -3px -3px 6px var(--shadow-light), inset 3px 3px 6px var(--shadow-dark);
+  outline: none;
+}
+
+#calculator {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#calculator>h1 {
+  font-size: 50px;
+  box-shadow: inset -3px -3px 6px var(--shadow-light), inset 3px 3px 6px var(--shadow-dark);
+  width: 300px;
+  height: 60px;
+  text-align: center;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: default;
+}
+
+#calculator button {
+  font-size: 50px;
+  background-color: var(--backgroundColor);
+  border: 0;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  margin: 10px;
+  color: var(--textColor);
+  cursor: pointer;
+  -webkit-appearance: none;
+  box-shadow: -3px -3px 6px var(--shadow-light), 3px 3px 6px var(--shadow-dark);
+}
+
+#calculator button:is(:hover, :focus) {
+  outline: none;
+  box-shadow: inset -3px -3px 6px var(--shadow-light), inset 3px 3px 6px var(--shadow-dark);
+}
+
+#calculator>div:nth-of-type(5)>button:nth-of-type(2) {
+  width: 160px;
+  margin-left: 10px;
+  border-radius: 35px;
+}
+
+#results {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+#results div {
+  margin: 10px;
+  width: 200px;
+  height: fit-content;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: -3px -3px 6px var(--shadow-light), 3px 3px 6px var(--shadow-dark);
+}
+
+#results div:nth-of-type(3) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  width: auto;
+  box-shadow: none;
+}
+
+#results button {
+  margin: 15px;
+  width: 120px;
+  height: 60px;
+  font-size: 40px;
+  color: var(--textColor);
+  cursor: pointer;
+  border: 0;
+  border-radius: 10px;
+  background-color: var(--backgroundColor);
+  -webkit-appearance: none;
+  box-shadow: -3px -3px 6px var(--shadow-light), 3px 3px 6px var(--shadow-dark);
+}
+
+#results button:is(:focus, :hover) {
+  outline: none;
+  box-shadow: inset -3px -3px 6px var(--shadow-light), inset 3px 3px 6px var(--shadow-dark);
+}
