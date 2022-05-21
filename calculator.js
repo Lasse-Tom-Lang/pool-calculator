@@ -32,6 +32,9 @@ function calculatorInput(input) {
         calculatorInputs = calculatorInputs + "" + input;
       }
     }
+    if (state == "Temp") {
+      calculatorInputs = calculatorInputs + "" + input;
+    }
   }
   else {
     if (state == "Cl") {
@@ -42,7 +45,11 @@ function calculatorInput(input) {
     if (state == "pH") {
       calculatorInputs = input;
     }
+    if (state == "Temp") {
+      calculatorInputs = input;
+    }
   }
+
   updateCalculator();
 }
 function calculatorClear() {
@@ -57,10 +64,16 @@ function calculatorNext() {
     calculatorInputs = 0;
   }
   else if (state == "Cl") {
+    state = "Temp";
+    calcualtorDisplay.innerHTML = "Temp: 0";
+    Cl = calculatorInputs;
+    calculatorInputs = 0;
+  }
+  else if (state = "Temp") {
     state = "results";
     results.style.display = "flex";
     calculator.style.display = "none";
-    Cl = calculatorInputs;
+    Temp = calculatorInputs;
     calculatorInputs = 0;
     showResults();
   }
@@ -74,6 +87,10 @@ function calculatorPrevious() {
   else if (state == "Cl") {
     calcualtorDisplay.innerHTML = "pH: 0";
     state = "pH";
+  }
+  else if (state == "Temp") {
+    calcualtorDisplay.innerHTML = "Cl: 0";
+    state = "Cl";
   }
 }
 function calculatorComma() {
@@ -92,6 +109,7 @@ function showResults() {
   document.getElementById("inputDose").innerHTML = "Dose: " + doseType;
   document.getElementById("inputPH").innerHTML = "pH: " + pH;
   document.getElementById("inputCL").innerHTML = "Cl: " + Cl + " mg/l";
+  document.getElementById("inputTemp").innerHTML = "Temp: " + Temp + "°C";
 
   if (pH > 7.4) {
     phTodo = Math.round(((pH - 7.4) * 10 * 100 * (poolVolume / 10)) * 1000) / 1000.0;
@@ -121,8 +139,7 @@ function showResults() {
 function saveData() {
   d = new Date();
   date = d.getDate() + "." + (d.getMonth() + 1) + "." + d.getFullYear();
-  string = date + "," + pH + "," + Cl + "," + phTodo + "," + ClOut + "," + AlOut;
-  console.log(string);
+  string = date + "," + pH + "," + Cl + "," + phTodo + "," + ClOut + "," + AlOut + "," + Temp;
   let xhr = new XMLHttpRequest();
   xhr.open("POST", "save_data.php");
   var formData = new FormData();
