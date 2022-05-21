@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pool Calculator</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+
+    <div id="calculatorBackground">
+      <div id="chooseDose">
+        <button onclick="setDose('first')">
+          First dose
+        </button>
+        <button onclick="setDose('normal')">
+          Normal dose
+        </button>
+        <button onclick="setDose('shock')">
+          Shock dose
+        </button>
+      </div>
+      <div id="calculator" style="display: none;">
+        <h1>
+          
+        </h1>
+        <div>
+          <button onclick="calculatorInput(7)">7</button>
+          <button onclick="calculatorInput(8)">8</button>
+          <button onclick="calculatorInput(9)">9</button>
+        </div>
+        <div>
+          <button onclick="calculatorInput(4)">4</button>
+          <button onclick="calculatorInput(5)">5</button>
+          <button onclick="calculatorInput(6)">6</button>
+        </div>
+        <div>
+          <button onclick="calculatorInput(1)">1</button>
+          <button onclick="calculatorInput(2)">2</button>
+          <button onclick="calculatorInput(3)">3</button>
+        </div>
+        <div>
+          <button onclick="calculatorComma()">,</button>
+          <button onclick="calculatorInput(0)">0</button>
+          <button onclick="calculatorClear()">X</button>
+        </div>
+        <div>
+          <button onclick="calculatorPrevious()">&laquo;</button>
+          <button onclick="calculatorNext()">&raquo;</button>
+        </div>
+      </div>
+      <div id="results" style="display: none;">
+        <div>
+          <h1>
+            Input
+          </h1>
+          <p id="inputDose">Dose:</p>
+          <p id="inputPH">pH:</p>
+          <p id="inputCL">Ch:</p>
+        </div>
+        <div>
+          <h1>Output</h1>
+          <p id="outputPH">pH:</p>
+          <p id="outputCL">Ch:</p>
+          <p id="outputAL">Al:</p>
+        </div>
+        <div>
+          <button onclick="saveData()">Save</button>
+          <button onclick="window.location.href='../index.html'">Back</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="calculator.js"></script>
+  </body>
+
+</html>
