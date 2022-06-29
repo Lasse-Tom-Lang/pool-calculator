@@ -22,31 +22,35 @@ calculatorInputs = 0;
 
 function calculatorInput(input) {
   if (calculatorInputs.toString() != "0" || calculatorInputs.toString() == "0.") {
-    if (state == "pH") {
-      if ((calculatorInputs + "" + input) <= 14) {
+    switch (state) {
+      case "pH":
+        if ((calculatorInputs + "" + input) <= 14) {
+          calculatorInputs = calculatorInputs + "" + input;
+        }
+        break;
+      case "Cl":
+        if ((calculatorInputs + "" + input) <= 3) {
+          calculatorInputs = calculatorInputs + "" + input;
+        }
+        break;
+      case "Temp":
         calculatorInputs = calculatorInputs + "" + input;
-      }
-    }
-    if (state == "Cl") {
-      if ((calculatorInputs + "" + input) <= 3) {
-        calculatorInputs = calculatorInputs + "" + input;
-      }
-    }
-    if (state == "Temp") {
-      calculatorInputs = calculatorInputs + "" + input;
+        break;
     }
   }
   else {
-    if (state == "Cl") {
-      if ((calculatorInputs + "" + input) <= 3) {
+    switch (state) {
+      case "Cl":
+        if ((calculatorInputs + "" + input) <= 3) {
+          calculatorInputs = input;
+        }
+        break;
+      case "pH":
         calculatorInputs = input;
-      }
-    }
-    if (state == "pH") {
-      calculatorInputs = input;
-    }
-    if (state == "Temp") {
-      calculatorInputs = input;
+        break;
+      case "Temp":
+        calculatorInputs = input;
+        break;
     }
   }
 
@@ -57,40 +61,44 @@ function calculatorClear() {
   updateCalculator();
 }
 function calculatorNext() {
-  if (state == "pH") {
-    state = "Cl";
-    calcualtorDisplay.innerHTML = "Cl: 0";
-    pH = calculatorInputs;
-    calculatorInputs = 0;
-  }
-  else if (state == "Cl") {
-    state = "Temp";
-    calcualtorDisplay.innerHTML = "Temp: 0";
-    Cl = calculatorInputs;
-    calculatorInputs = 0;
-  }
-  else if (state = "Temp") {
-    state = "results";
-    results.style.display = "flex";
-    calculator.style.display = "none";
-    Temp = calculatorInputs;
-    calculatorInputs = 0;
-    showResults();
+  switch (state) {
+    case "pH": 
+      state = "Cl";
+      calcualtorDisplay.innerHTML = "Cl: 0";
+      pH = calculatorInputs;
+      calculatorInputs = 0;
+      break;
+    case "Cl":
+      state = "Temp";
+      calcualtorDisplay.innerHTML = "Temp: 0";
+      Cl = calculatorInputs;
+      calculatorInputs = 0;
+      break;
+    case "Temp":
+      state = "results";
+      results.style.display = "flex";
+      calculator.style.display = "none";
+      Temp = calculatorInputs;
+      calculatorInputs = 0;
+      showResults();
+      break;
   }
 }
 function calculatorPrevious() {
-  if (state == "pH") {
-    state = "dose";
-    chooseDose.style.display = "flex";
-    calculator.style.display = "none"
-  }
-  else if (state == "Cl") {
-    calcualtorDisplay.innerHTML = "pH: 0";
-    state = "pH";
-  }
-  else if (state == "Temp") {
-    calcualtorDisplay.innerHTML = "Cl: 0";
-    state = "Cl";
+  switch (state) {
+    case "pH":
+      state = "dose";
+      chooseDose.style.display = "flex";
+      calculator.style.display = "none"
+      break;
+    case "Cl":
+      calcualtorDisplay.innerHTML = "pH: 0";
+      state = "pH";
+      break;
+    case "Temp":
+      calcualtorDisplay.innerHTML = "Cl: 0";
+      state = "Cl";
+      break;
   }
 }
 function calculatorComma() {
@@ -118,18 +126,20 @@ function showResults() {
     phTodo = "-";
   }
 
-  if (doseType == "normal") {
-    AlOut = (40 * (poolVolume / 10));
-    ClOut = (50 * (poolVolume / 10));
+  switch (doseType) {
 
-  }
-  if (doseType == "first") {
-    AlOut = (100 * (poolVolume / 10))
-    ClOut = (100 * (poolVolume / 10))
-  }
-  if (doseType == "shock") {
-    AlOut = (600 * (poolVolume / 10));
-    ClOut = (200 * (poolVolume / 10));
+    case "normal":
+      AlOut = (40 * (poolVolume / 10));
+      ClOut = (50 * (poolVolume / 10));
+      break;
+    case "first":
+      AlOut = (100 * (poolVolume / 10));
+      ClOut = (100 * (poolVolume / 10));
+      break;
+    case "shock":
+      AlOut = (600 * (poolVolume / 10));
+      ClOut = (200 * (poolVolume / 10));
+      break;
   }
   document.getElementById("outputAL").innerHTML = "Al: " + AlOut + " g";
   document.getElementById("outputPH").innerHTML = "pH-: " + phTodo + " g";
