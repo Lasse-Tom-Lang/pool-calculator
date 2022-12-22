@@ -4,7 +4,7 @@ type state = "dose" | "pH" | "Cl" | "Temp" |  "results"
 const poolVolume = 13.3 //In m3
 let doseType: doseType;
 let state:state = "dose";
-let calculatorInputs = 0;
+let calculatorInputs:any = 0;
 let pH = 0
 let Cl = 0
 let Temp = 0
@@ -37,16 +37,16 @@ function calculatorInput(input:number) {
     switch (state) {
       case "pH":
         if (parseInt(calculatorInputs + "" + input) <= 14) {
-          calculatorInputs = parseInt(calculatorInputs + "" + input);
+          calculatorInputs = (calculatorInputs + "" + input);
         }
         break;
       case "Cl":
         if (parseInt(calculatorInputs + "" + input) <= 3) {
-          calculatorInputs = parseInt(calculatorInputs + "" + input);
+          calculatorInputs = (calculatorInputs + "" + input);
         }
         break;
       case "Temp":
-        calculatorInputs = parseInt(calculatorInputs + "" + input);
+        calculatorInputs = (calculatorInputs + "" + input);
         break;
     }
   }
@@ -115,10 +115,10 @@ function calculatorPrevious() {
 }
 function calculatorComma() {
   if (calculatorInputs == 0) {
-    calculatorInputs = parseInt("0.");
+    calculatorInputs = ("0.");
   }
   else {
-    calculatorInputs = parseInt(calculatorInputs + ".");
+    calculatorInputs = (calculatorInputs + ".");
   }
   updateCalculator();
 }
