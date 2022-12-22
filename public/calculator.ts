@@ -1,15 +1,30 @@
+type doseType = "first" | "normal" | "shock"
+type state = "dose" | "pH" | "Cl" | "Temp" |  "results"
+
 const poolVolume = 13.3 //In m3
-doseType = "";
+let doseType: doseType;
+let state:state = "dose";
+let calculatorInputs = 0;
+let pH = 0
+let Cl = 0
+let Temp = 0
+let phTodo:any
+let AlOut: number
+let ClOut: number
 
-chooseDose = document.getElementById("chooseDose");
-calculator = document.getElementById("calculator");
-results = document.getElementById("results");
+const chooseDose = document.getElementById("chooseDose") as HTMLDivElement;
+const calculator = document.getElementById("calculator") as HTMLDivElement;
+const results = document.getElementById("results") as HTMLDivElement;
+const calcualtorDisplay = document.querySelector("#calculator h1") as HTMLHeadingElement;
+const inputDose = document.getElementById("inputDose") as HTMLParagraphElement;
+const inputPH = document.getElementById("inputPH") as HTMLParagraphElement;
+const inputCl = document.getElementById("inputCL") as HTMLParagraphElement;
+const inputTemp = document.getElementById("inputTemp") as HTMLParagraphElement;
+const outputAL = document.getElementById("outputAL") as HTMLParagraphElement;
+const outputPH = document.getElementById("outputPH") as HTMLParagraphElement;
+const outputCl = document.getElementById("outputCL") as HTMLParagraphElement;
 
-calcualtorDisplay = document.querySelector("#calculator h1");
-
-state = "dose"
-
-function setDose(type) {
+function setDose(type: doseType) {
   doseType = type;
   state = "pH";
   calcualtorDisplay.innerHTML = "pH: 0";
@@ -17,31 +32,28 @@ function setDose(type) {
   calculator.style.display = "flex"
 }
 
-
-calculatorInputs = 0;
-
-function calculatorInput(input) {
+function calculatorInput(input:number) {
   if (calculatorInputs.toString() != "0" || calculatorInputs.toString() == "0.") {
     switch (state) {
       case "pH":
-        if ((calculatorInputs + "" + input) <= 14) {
-          calculatorInputs = calculatorInputs + "" + input;
+        if (parseInt(calculatorInputs + "" + input) <= 14) {
+          calculatorInputs = parseInt(calculatorInputs + "" + input);
         }
         break;
       case "Cl":
-        if ((calculatorInputs + "" + input) <= 3) {
-          calculatorInputs = calculatorInputs + "" + input;
+        if (parseInt(calculatorInputs + "" + input) <= 3) {
+          calculatorInputs = parseInt(calculatorInputs + "" + input);
         }
         break;
       case "Temp":
-        calculatorInputs = calculatorInputs + "" + input;
+        calculatorInputs = parseInt(calculatorInputs + "" + input);
         break;
     }
   }
   else {
     switch (state) {
       case "Cl":
-        if ((calculatorInputs + "" + input) <= 3) {
+        if (parseInt(calculatorInputs + "" + input) <= 3) {
           calculatorInputs = input;
         }
         break;
@@ -103,10 +115,10 @@ function calculatorPrevious() {
 }
 function calculatorComma() {
   if (calculatorInputs == 0) {
-    calculatorInputs = "0.";
+    calculatorInputs = parseInt("0.");
   }
   else {
-    calculatorInputs = calculatorInputs + ".";
+    calculatorInputs = parseInt(calculatorInputs + ".");
   }
   updateCalculator();
 }
@@ -114,10 +126,10 @@ function updateCalculator() {
   calcualtorDisplay.innerHTML = state + ": " + calculatorInputs;
 }
 function showResults() {
-  document.getElementById("inputDose").innerHTML = "Dose: " + doseType;
-  document.getElementById("inputPH").innerHTML = "pH: " + pH;
-  document.getElementById("inputCL").innerHTML = "Cl: " + Cl + " mg/l";
-  document.getElementById("inputTemp").innerHTML = "Temp: " + Temp + "°C";
+  inputDose.innerHTML = "Dose: " + doseType;
+  inputPH.innerHTML = "pH: " + pH;
+  inputCl.innerHTML = "Cl: " + Cl + " mg/l";
+  inputTemp.innerHTML = "Temp: " + Temp + "°C";
 
   if (pH > 7.4) {
     phTodo = Math.round(((pH - 7.4) * 10 * 100 * (poolVolume / 10)) * 1000) / 1000.0;
@@ -141,15 +153,15 @@ function showResults() {
       ClOut = (200 * (poolVolume / 10));
       break;
   }
-  document.getElementById("outputAL").innerHTML = "Al: " + AlOut + " g";
-  document.getElementById("outputPH").innerHTML = "pH-: " + phTodo + " g";
-  document.getElementById("outputCL").innerHTML = "Cl: " + ClOut + " g";
+  outputAL.innerHTML = "Al: " + AlOut + " g";
+  outputPH.innerHTML = "pH-: " + phTodo + " g";
+  outputCl.innerHTML = "Cl: " + ClOut + " g";
 }
 
 function saveData() {
-  d = new Date();
-  date = d.getDate() + "." + (d.getMonth() + 1) + "." + d.getFullYear();
-  string = date + "," + pH + "," + Cl + "," + phTodo + "," + ClOut + "," + AlOut + "," + Temp;
+  let d = new Date();
+  let date = d.getDate() + "." + (d.getMonth() + 1) + "." + d.getFullYear();
+  let string = date + "," + pH + "," + Cl + "," + phTodo + "," + ClOut + "," + AlOut + "," + Temp;
   let xhr = new XMLHttpRequest();
   xhr.open("POST", "save_data.php");
   var formData = new FormData();
