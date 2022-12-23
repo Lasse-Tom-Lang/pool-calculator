@@ -21,3 +21,11 @@ app.get("/calculator.js", (req, res) => {
   res.write(fs.readFileSync("./public/calculator.js"));
   res.end();
 })
+
+app.get("/saveData", (req, res) => {
+  let data =  "\n" + req.query.data as string
+  if (data) {
+    fs.writeFileSync("./data.csv", data, {flag: "a+"})
+  }
+  res.end()
+})

@@ -161,10 +161,5 @@ function showResults() {
 function saveData() {
   let d = new Date();
   let date = d.getDate() + "." + (d.getMonth() + 1) + "." + d.getFullYear();
-  let string = date + "," + pH + "," + Cl + "," + phTodo + "," + ClOut + "," + AlOut + "," + Temp;
-  let xhr = new XMLHttpRequest();
-  xhr.open("POST", "save_data.php");
-  var formData = new FormData();
-  formData.append("data", string);
-  xhr.send(formData);
+  fetch(`/saveData?data=${date},${pH},${Cl},${phTodo},${ClOut},${AlOut},${Temp}`)
 }
